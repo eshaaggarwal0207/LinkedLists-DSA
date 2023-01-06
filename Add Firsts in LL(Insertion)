@@ -23,37 +23,12 @@ class Node{
 
 void Insert_at_beg(Node* &head,int data){
     Node* temp= new Node(data); //new node
+    if(head == NULL){
+         head = temp;
+         return;
+    }
     temp->next= head;  //inserting at beg
     head= temp; //updating head
-}
-
-void Insert_at_end(Node* &tail,int data){
-    Node* temp= new Node(data); //new node
-    tail->next= temp;  //inserting at tail
-    tail= temp;  //updating tail
-}
-
-void Insert_at_mid(Node* &head,Node* &tail,int position,int data){
-    if (position==1)
-    {
-        Insert_at_beg(head,data);
-        return;
-    }
-    
-    Node* temp= new Node(data);
-    Node* temp1= head;
-    int cnt=1;
-    while(cnt < position-1 ){
-        temp1= temp1->next;
-        cnt++;
-    }
-    if (temp1->next == NULL)
-    {
-        Insert_at_end(tail,data);
-        return;
-    }
-    temp->next= temp1->next;
-    temp1->next= temp;
 }
 
 void Print(Node* head){
@@ -81,9 +56,4 @@ int main(){
     Insert_at_beg(head,0);
     Print(head);
     cout<<head->data<<endl;
-    Node* tail= node1;
-    Insert_at_end(tail,20);
-    Insert_at_end(tail,25);
-    Insert_at_mid(head,tail,7,100);
-    Print(head);
 }
