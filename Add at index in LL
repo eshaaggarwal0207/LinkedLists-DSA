@@ -1,0 +1,89 @@
+#include<iostream>
+using namespace std;
+
+class Node{
+    public:
+    int data;
+    Node* next;
+
+    Node(int data){
+        this-> data= data;
+        this-> next= NULL;
+    }
+
+    ~Node(){
+        int value= this->data;
+        if(this->next != NULL){
+            delete next;
+            next = NULL;
+        }
+        cout<<"Memory is free for data value"<<value<<endl;
+    }
+};
+
+void Insert_at_beg(Node* &head,int data){
+    Node* temp= new Node(data); //new node
+    temp->next= head;  //inserting at beg
+    head= temp; //updating head
+}
+
+void Insert_at_end(Node* &tail,int data){
+    Node* temp= new Node(data); //new node
+    tail->next= temp;  //inserting at tail
+    tail= temp;  //updating tail
+}
+
+void Add_At_Index(Node* &head,Node* &tail,int position,int data){
+    if (position==1)
+    {
+        Insert_at_beg(head,data);
+        return;
+    }
+    
+    Node* temp= new Node(data);
+    Node* temp1= head;
+    int cnt=1;
+    while(cnt < position-1 ){
+        temp1= temp1->next;
+        cnt++;
+    }
+    if (temp1->next == NULL)
+    {
+        Insert_at_end(tail,data);
+        return;
+    }
+    temp->next= temp1->next;
+    temp1->next= temp;
+}
+
+void Print(Node* head){
+    if (head== NULL)
+    {
+       cout<<"List is empty"<<endl;
+       return; 
+    }
+    
+    Node* temp= head;
+    while (temp != NULL)
+    {
+        cout<<temp->data<<"->";
+        temp= temp->next;
+    }
+    cout<<"NULL"<<endl;
+}
+
+int main(){
+    Node* node1= new Node(15);
+    Node* head= node1;
+    Insert_at_beg(head,10);
+    Print(head);
+    Insert_at_beg(head,5);
+    Insert_at_beg(head,0);
+    Print(head);
+    cout<<head->data<<endl;
+    Node* tail= node1;
+    Insert_at_end(tail,20);
+    Insert_at_end(tail,25);
+    Add_At_Index(head,tail,7,100);
+    Print(head);
+}
