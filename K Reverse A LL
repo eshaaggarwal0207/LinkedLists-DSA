@@ -1,0 +1,34 @@
+#include<iostream>
+using namespace std;
+
+class Node{
+    public:
+    int data;
+    Node* next;
+
+    Node(int data){
+        this-> data= data;
+        this-> next= NULL;
+    }
+};
+
+Node* KReverse(Node* head,int k){
+     if(head== NULL || head->next == NULL){
+          return head
+     }
+     Node* prev = NULL;
+     Node* curr = head;
+     Node* next;
+     int i = 1;
+     while(curr != NULL && i<k){
+          next = curr->next;
+          curr->next = prev;
+          prev = curr;
+          curr = next;
+          i++;
+     }
+     if(next != NULL){
+          head->next = KReverse(next,k);
+     }
+     return prev;
+}
