@@ -1,0 +1,35 @@
+#include<iostream>
+using namespace std;
+
+class Node{
+    public:
+    int data;
+    Node* next;
+
+    Node(int data){
+        this-> data= data;
+        this-> next= NULL;
+    }
+
+    ~Node(){
+        int value= this->data;
+        if(this->next != NULL){
+            delete next;
+            next = NULL;
+        }
+        cout<<"Memory is free for data value"<<value<<endl;
+    }
+};
+
+Node* ReverseIterative(Node* &head){
+    Node* prev = NULL;
+    Node* curr= head;
+    Node* next;
+    while(curr != NULL){
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    return prev;
+}
