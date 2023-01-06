@@ -1,0 +1,70 @@
+#include<iostream>
+using namespace std;
+
+class Node{
+    public:
+    int data;
+    Node* next;
+
+    Node(int data){
+        this-> data= data;
+        this-> next= NULL;
+    }
+
+    ~Node(){
+        int value= this->data;
+        if(this->next != NULL){
+            delete next;
+            next = NULL;
+        }
+        cout<<"Memory is free for data value"<<value<<endl;
+    }
+};
+
+int length(Node* &head){
+    int lngth=0;
+    Node* temp= head;
+    while (temp != NULL)
+    {
+        lngth++;
+        temp=temp->next;
+    }
+    return lngth;
+    
+}
+
+int Mid1(Node* &head){
+    Node* slow= head;
+    Node* fast= head;
+    int l= length(head);
+    if (l % 2 == 0)
+    {
+       while (fast != NULL)
+    {
+        fast= fast->next->next;
+        slow= slow->next;
+    }
+    }else{
+        while (fast->next != NULL)
+        {
+            fast= fast->next->next;
+            slow= slow->next;
+        }
+        
+    }
+    
+    return slow->data;
+}
+
+int Mid2(Node* &head){
+    int l= length(head);
+    int ans= (l/2) + 1;
+    Node* temp= head;
+    int cnt=1;
+    while (cnt< ans)
+    {
+        temp=temp->next;
+        cnt++;
+    }
+    return temp->data;
+}
